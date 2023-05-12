@@ -1,0 +1,10 @@
+{
+  "miniecomApp": {
+    "StatusProduct": {
+      "null": "",
+      "AVAILABLE": "AVAILABLE",
+      "EMPTY": "EMPTY",
+      "NOT_ENOUGH": "NOT_ENOUGH"
+    }
+  }
+}

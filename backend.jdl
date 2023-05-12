@@ -1,0 +1,33 @@
+
+entity Product{
+ productName String required,
+ quantity Integer required,
+ imageProduct ImageBlob,
+ unitprice Double required,
+ status StatusProduct
+}
+
+entity Category{
+categoryName String required,
+description String
+}
+
+entity Order{
+ quantityOrder Integer required,
+ date Instant required
+}
+
+enum StatusProduct{
+ AVAILABLE, EMPTY, NOT_ENOUGH
+}
+
+relationship ManyToOne{
+Product{category(name)} to Category
+Order{user(login)} to User
+Order{product(productName)} to Product
+}
+
+paginate Product with infinite-scroll
+
+service all with serviceImpl
+

@@ -1,21 +1,62 @@
 <div class="row">
   <div class="col-md-3">
-    <span class="hipster img-fluid rounded"></span>
+    <!--<span class="hipster img-fluid rounded"></span>-->
+    <header>
+      <nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse bg-white">
+        <div class="position-sticky">
+          <div class="list-group list-group-flush mx-3 mt-4">
+            <a href="#" class="list-group-item list-group-item-action py-2 ripple" aria-current="true">
+              <i class="fas fa-tachometer-alt fa-fw me-3"></i><span>Menus</span>
+            </a>
+            <a href="#" class="list-group-item list-group-item-action py-2 ripple active">
+              <i class="fas fa-chart-area fa-fw me-3"></i><span>Webiste traffic</span>
+            </a>
+            <a href="#" class="list-group-item list-group-item-action py-2 ripple"
+              ><i class="fas fa-lock fa-fw me-3"></i><span>Password</span></a
+            >
+            <a href="#" class="list-group-item list-group-item-action py-2 ripple"
+              ><i class="fas fa-chart-line fa-fw me-3"></i><span>Analytics</span></a
+            >
+            <a href="#" class="list-group-item list-group-item-action py-2 ripple">
+              <i class="fas fa-chart-pie fa-fw me-3"></i><span>SEO</span>
+            </a>
+            <a href="#" class="list-group-item list-group-item-action py-2 ripple"
+              ><i class="fas fa-chart-bar fa-fw me-3"></i><span>Orders</span></a
+            >
+            <a href="#" class="list-group-item list-group-item-action py-2 ripple"
+              ><i class="fas fa-globe fa-fw me-3"></i><span>International</span></a
+            >
+            <a href="#" class="list-group-item list-group-item-action py-2 ripple"
+              ><i class="fas fa-building fa-fw me-3"></i><span>Partners</span></a
+            >
+            <a href="#" class="list-group-item list-group-item-action py-2 ripple"
+              ><i class="fas fa-calendar fa-fw me-3"></i><span>Calendar</span></a
+            >
+            <a href="#" class="list-group-item list-group-item-action py-2 ripple"
+              ><i class="fas fa-users fa-fw me-3"></i><span>Users</span></a
+            >
+            <a href="#" class="list-group-item list-group-item-action py-2 ripple"
+              ><i class="fas fa-money-bill fa-fw me-3"></i><span>Sales</span></a
+            >
+          </div>
+        </div>
+      </nav>
+    </header>
   </div>
 
   <div class="col-md-9">
-    <h1 class="display-4"><span jhiTranslate="home.title">Bienvenue, Java Hipster !</span> (Miniecom)</h1>
+    <h4 class="display-4"><span jhiTranslate="home.title">Bienvenue votre plateforme</span> (Miniecom)</h4>
 
-    <p class="lead" jhiTranslate="home.subtitle">Ceci est votre page d'accueil</p>
+    <!--<p class="lead" jhiTranslate="home.subtitle">Ceci est votre page d'accueil</p>-->
 
     <div [ngSwitch]="account !== null">
-      <div class="alert alert-success" *ngSwitchCase="true">
+      <!--<div class="alert alert-success" *ngSwitchCase="true">
         <span id="home-logged-message" *ngIf="account" jhiTranslate="home.logged.message" [translateValues]="{ username: account.login }"
           >Vous êtes connecté en tant que "{{ account.login }}".</span
         >
-      </div>
+      </div>-->
 
-      <div class="alert alert-warning" *ngSwitchCase="false">
+      <!--<div class="alert alert-warning" *ngSwitchCase="false">
         <span jhiTranslate="global.messages.info.authenticated.prefix">Si vous voulez vous </span>
         <a class="alert-link" (click)="login()" jhiTranslate="global.messages.info.authenticated.link">connecter</a
         ><span jhiTranslate="global.messages.info.authenticated.suffix"
@@ -23,7 +64,7 @@
           - Administrateur (nom d'utilisateur="admin" et mot de passe ="admin") <br />
           - Utilisateur (nom d'utilisateur="user" et mot de passe ="user").</span
         >
-      </div>
+      </div>-->
 
       <div class="alert alert-warning" *ngSwitchCase="false">
         <span jhiTranslate="global.messages.info.register.noaccount">Vous n'avez pas encore de compte ?</span>&nbsp;
@@ -31,9 +72,33 @@
       </div>
     </div>
 
-    <p jhiTranslate="home.question">Si vous avez des questions à propos de JHipster :</p>
+    <div class="row">
+      <div class="col-md-4" *ngFor="let product of products">
+        <div class="card" style="width: 18rem">
+          <!--  <img class="card-img-top" src="..." alt="Card image cap">-->
+          <a *ngIf="product.imageProduct" (click)="openFile(product.imageProduct, product.imageProductContentType)">
+            <img
+              class="card-img-top"
+              [src]="'data:' + product.imageProductContentType + ';base64,' + product.imageProduct"
+              style="max-width: 100%"
+              alt="product image"
+            />
+          </a>
+          <div class="card-body">
+            <h5 class="card-title">{{ product.productName }}</h5>
+            <p class="card-text">{{ product.unitprice }}</p>
+            <button type="submit" [routerLink]="['/product', product.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+              <fa-icon icon="eye"></fa-icon>
+              <span class="d-none d-md-inline" jhiTranslate="entity.action.view">Voir</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
 
-    <ul>
+    <!-- <p jhiTranslate="home.question">Si vous avez des questions à propos de JHipster :</p>-->
+
+    <!--<ul>
       <li>
         <a href="https://www.jhipster.tech/" target="_blank" rel="noopener noreferrer" jhiTranslate="home.link.homepage"
           >Page d'accueil de JHipster</a
@@ -67,13 +132,13 @@
           >Suivez @jhipster sur Twitter</a
         >
       </li>
-    </ul>
+    </ul>-->
 
-    <p>
+    <!--<p>
       <span jhiTranslate="home.like">Si vous aimez JHipster, donnez nous une étoile sur</span>
       <a href="https://github.com/jhipster/generator-jhipster" target="_blank" rel="noopener noreferrer" jhiTranslate="home.github"
         >GitHub </a
       >!
-    </p>
+    </p>-->
   </div>
 </div>
