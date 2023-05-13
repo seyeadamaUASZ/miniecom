@@ -2,32 +2,32 @@
 
 node {
     stage('checkout') {
-        checkout scm
+        git branch: 'main', url: 'https://github.com/seyeadamaUASZ/miniecom.git'
     }
 
     docker.image('jhipster/jhipster:v7.9.3').inside('-u jhipster -e MAVEN_OPTS="-Duser.home=./"') {
         stage('check java') {
-            sh "java -version"
+            bat "java -version"
         }
 
         stage('clean') {
-            sh "chmod +x mvnw"
-            sh "./mvnw -ntp clean -P-webapp"
+            bat "chmod +x mvnw"
+            bat "mvn -ntp clean -P-webapp"
         }
         stage('nohttp') {
-            sh "./mvnw -ntp checkstyle:check"
+            bat "mvn -ntp checkstyle:check"
         }
 
         stage('install tools') {
-            sh "./mvnw -ntp com.github.eirslett:frontend-maven-plugin:install-node-and-npm@install-node-and-npm"
+            bat "mvn -ntp com.github.eirslett:frontend-maven-plugin:install-node-and-npm@install-node-and-npm"
         }
 
         stage('npm install') {
-            sh "./mvnw -ntp com.github.eirslett:frontend-maven-plugin:npm"
+            bat "mvn -ntp com.github.eirslett:frontend-maven-plugin:npm"
         }
         stage('backend tests') {
             try {
-                sh "./mvnw -ntp verify -P-webapp"
+                bat "mvn -ntp verify -P-webapp"
             } catch(err) {
                 throw err
             } finally {
@@ -37,8 +37,8 @@ node {
 
         stage('frontend tests') {
             try {
-               sh "npm install"
-               sh "npm test"
+               bat "npm install"
+               bat "npm test"
             } catch(err) {
                 throw err
             } finally {
@@ -47,12 +47,12 @@ node {
         }
 
         stage('packaging') {
-            sh "./mvnw -ntp verify -P-webapp -Pprod -DskipTests"
+            bat "mvn -ntp verify -P-webapp -Pprod -DskipTests"
             archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true
         }
         stage('quality analysis') {
-            withSonarQubeEnv('sonar') {
-                sh "./mvnw -ntp initialize sonar:sonar"
+            withSonarQubeEnv(installationName:'sq1'){
+                bat 'mvn clean install -DskipTests org.sonarsource.scanner.maven:sonar-maven-plugin:3.9.0.2155:sonar -Dsonar.java.binaries=target/classes'
             }
         }
     }
