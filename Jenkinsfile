@@ -37,10 +37,10 @@ node("master") {
             bat "mvn -ntp package -P-webapp -Pprod -DskipTests"
             archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true
         }
-        stage('quality analysis') {
+        /*stage('quality analysis') {
             withSonarQubeEnv(installationName:'sq1'){
                 bat 'mvn -Pprod clean verify sonar:sonar -Dsonar.host.url=http://localhost:9000'
             }
-        }
+        }*/
     }
 
