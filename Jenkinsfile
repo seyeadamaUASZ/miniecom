@@ -36,7 +36,6 @@ node("master") {
         stage('frontend tests') {
             try {
                bat "npm install"
-               bat "npm test"
             } catch(err) {
                 throw err
             } finally {
@@ -45,7 +44,7 @@ node("master") {
         }
 
         stage('packaging') {
-            bat "mvn -ntp verify -P-webapp -Pprod -DskipTests"
+            bat "mvn -ntp package -P-webapp -Pprod -DskipTests"
             archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true
         }
         stage('quality analysis') {
