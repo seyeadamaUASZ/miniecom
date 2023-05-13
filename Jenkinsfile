@@ -33,14 +33,13 @@ node("master") {
             }
         }
 
-
         stage('packaging') {
             bat "mvn -ntp package -P-webapp -Pprod -DskipTests"
             archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true
         }
         stage('quality analysis') {
             withSonarQubeEnv(installationName:'sq1'){
-                bat 'mvn clean install -DskipTests org.sonarsource.scanner.maven:sonar-maven-plugin:3.9.0.2155:sonar -Dsonar.java.binaries=target/classes'
+                bat 'mvn -Pprod clean verify sonar:sonar -Dsonar.host.url=http://localhost:9000'
             }
         }
     }
