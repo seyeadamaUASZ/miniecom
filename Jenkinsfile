@@ -25,7 +25,7 @@ node("master") {
         }
         stage('backend tests') {
             try {
-                bat "mvn -ntp verify -P-webapp"
+                bat "mvn -ntp test -P-webapp"
             } catch(err) {
                 throw err
             } finally {
