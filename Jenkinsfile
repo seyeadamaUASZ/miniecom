@@ -5,13 +5,11 @@ node("master") {
         git branch: 'main', url: 'https://github.com/seyeadamaUASZ/miniecom.git'
     }
 
-    docker.image('jhipster/jhipster:v7.9.3').inside('-u jhipster -e MAVEN_OPTS="-Duser.home=./"') {
         stage('check java') {
             bat "java -version"
         }
 
         stage('clean') {
-            bat "chmod +x mvnw"
             bat "mvn -ntp clean -P-webapp"
         }
         stage('nohttp') {
@@ -56,4 +54,4 @@ node("master") {
             }
         }
     }
-}
+
