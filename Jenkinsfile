@@ -1,6 +1,6 @@
 #!/usr/bin/env groovy
 
-node {
+node("master") {
     stage('checkout') {
         git branch: 'main', url: 'https://github.com/seyeadamaUASZ/miniecom.git'
     }
