@@ -33,13 +33,6 @@ node("master") {
             }
         }
 
-        stage('frontend tests') {
-            try {
-               bat "npm install"
-            } catch(err) {
-                throw err
-            }
-        }
 
         stage('packaging') {
             bat "mvn -ntp package -P-webapp -Pprod -DskipTests"
