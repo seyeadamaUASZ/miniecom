@@ -38,8 +38,6 @@ node("master") {
                bat "npm install"
             } catch(err) {
                 throw err
-            } finally {
-                junit '**/target/test-results/TESTS-results-jest.xml'
             }
         }
 
