@@ -567,7 +567,7 @@
                     <artifactId>jib-maven-plugin</artifactId>
                     <version>${jib-maven-plugin.version}</version>
                     <configuration>
-                        <from>
+                       <from>
                             <image>${jib-maven-plugin.image}</image>
                             <platforms>
                                 <platform>
@@ -577,7 +577,7 @@
                             </platforms>
                         </from>
                         <to>
-                            <image>miniecom:latest</image>
+                             <image>miniecom:latest</image>
                         </to>
                         <container>
                             <entrypoint>

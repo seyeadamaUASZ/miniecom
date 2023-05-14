@@ -101,6 +101,7 @@
       "open": "Ouvrir",
       "save": "Sauvegarder",
       "view": "Voir plus en détail",
+      "command": "Commander",
       "show": "Show {{otherEntity}}"
     },
     "detail": {

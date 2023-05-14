@@ -1,17 +1,15 @@
 <div class="d-flex justify-content-center">
   <div class="col-8">
-    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
-      <h2 id="jhi-order-heading" data-cy="OrderCreateUpdateHeading" jhiTranslate="miniecomApp.order.home.createOrEditLabel">
-        Créer ou éditer un Order
-      </h2>
+    <form name="orderForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="orderForm">
+      <h2 id="jhi-order-heading" data-cy="OrderCreateUpdateHeading">Commander {{ product?.productName! }}</h2>
 
       <div>
         <jhi-alert-error></jhi-alert-error>
 
-        <div class="row mb-3" *ngIf="editForm.controls.id.value !== null">
+        <!--<div class="row mb-3" *ngIf="orderForm.controls.id.value !== null">
           <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
           <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
-        </div>
+        </div>-->
 
         <div class="row mb-3">
           <label class="form-label" jhiTranslate="miniecomApp.order.quantityOrder" for="field_quantityOrder">Quantity Order</label>
@@ -25,19 +23,19 @@
           />
           <div
             *ngIf="
-              editForm.get('quantityOrder')!.invalid && (editForm.get('quantityOrder')!.dirty || editForm.get('quantityOrder')!.touched)
+              orderForm.get('quantityOrder')!.invalid && (orderForm.get('quantityOrder')!.dirty || orderForm.get('quantityOrder')!.touched)
             "
           >
             <small
               class="form-text text-danger"
-              *ngIf="editForm.get('quantityOrder')?.errors?.required"
+              *ngIf="orderForm.get('quantityOrder')?.errors?.required"
               jhiTranslate="entity.validation.required"
             >
               Ce champ est obligatoire.
             </small>
             <small
               class="form-text text-danger"
-              [hidden]="!editForm.get('quantityOrder')?.errors?.number"
+              [hidden]="!orderForm.get('quantityOrder')?.errors?.number"
               jhiTranslate="entity.validation.number"
             >
               Ce champ doit être un nombre.
@@ -58,13 +56,13 @@
               placeholder="YYYY-MM-DD HH:mm"
             />
           </div>
-          <div *ngIf="editForm.get('date')!.invalid && (editForm.get('date')!.dirty || editForm.get('date')!.touched)">
-            <small class="form-text text-danger" *ngIf="editForm.get('date')?.errors?.required" jhiTranslate="entity.validation.required">
+          <div *ngIf="orderForm.get('date')!.invalid && (orderForm.get('date')!.dirty || orderForm.get('date')!.touched)">
+            <small class="form-text text-danger" *ngIf="orderForm.get('date')?.errors?.required" jhiTranslate="entity.validation.required">
               Ce champ est obligatoire.
             </small>
             <small
               class="form-text text-danger"
-              [hidden]="!editForm.get('date')?.errors?.datetimelocal"
+              [hidden]="!orderForm.get('date')?.errors?.datetimelocal"
               jhiTranslate="entity.validation.datetimelocal"
             >
               Ce champ doit être une date et une heure.
@@ -81,22 +79,22 @@
         </div>-->
 
         <!--
-        <div class="row mb-3">
-          <label class="form-label" jhiTranslate="miniecomApp.order.product" for="field_product">Product</label>
-          <select
-            class="form-control"
-            id="field_product"
-            data-cy="product"
-            name="product"
-            formControlName="product"
-            [compareWith]="compareProduct"
-          >
-            <option [ngValue]="null"></option>
-            <option [ngValue]="productOption" *ngFor="let productOption of productsSharedCollection">
-              {{ productOption.productName }}
-            </option>
-          </select>
-        </div>-->
+                <div class="row mb-3">
+                  <label class="form-label" jhiTranslate="miniecomApp.order.product" for="field_product">Product</label>
+                  <select
+                    class="form-control"
+                    id="field_product"
+                    data-cy="product"
+                    name="product"
+                    formControlName="product"
+                    [compareWith]="compareProduct"
+                  >
+                    <option [ngValue]="null"></option>
+                    <option [ngValue]="productOption" *ngFor="let productOption of productsSharedCollection">
+                      {{ productOption.productName }}
+                    </option>
+                  </select>
+                </div>-->
       </div>
 
       <div>
@@ -108,10 +106,10 @@
           type="submit"
           id="save-entity"
           data-cy="entityCreateSaveButton"
-          [disabled]="editForm.invalid || isSaving"
+          [disabled]="orderForm.invalid || isSaving"
           class="btn btn-primary"
         >
-          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Sauvegarder</span>
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.command">Commander</span>
         </button>
       </div>
     </form>
