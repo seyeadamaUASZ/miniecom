@@ -37,6 +37,16 @@ node("master") {
             bat "mvn -ntp package -P-webapp -Pprod -DskipTests"
             archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true
         }
+
+        stage('Docker Build') {
+            bat 'mvn verify -DskipTests jib:dockerBuild'
+        }
+         stage('Docker Push') {
+             withCredentials([usernamePassword(credentialsId: '082bdb62-13e2-4e45-8435-3c987256309f', passwordVariable: 'Amadou031', usernameVariable: 'adama93')]) {
+             bat "docker login -u adama93 -p Amadou031"
+             bat 'docker push adama93/miniecom:latest'
+          }
+         }
         /*stage('quality analysis') {
             withSonarQubeEnv(installationName:'sq1'){
                 bat 'mvn -Pprod clean verify sonar:sonar -Dsonar.host.url=http://localhost:9000'
