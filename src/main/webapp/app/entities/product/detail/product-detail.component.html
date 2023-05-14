@@ -125,7 +125,16 @@
                 <div class="d-flex flex-column mt-4">
                   <button class="btn btn-primary btn-sm" type="button">Details</button>
                   <button class="btn btn-outline-primary btn-sm mt-2" type="button">
-                    <span jhiTranslate="miniecomApp.product.detail.addcard">Ajouter au panier</span>
+                    <span jhiTranslate="miniecomApp.product.detail.addcard">Commander</span>
+                  </button>
+                  <button
+                    type="submit"
+                    [routerLink]="['/order', product.id, 'saveOrder']"
+                    class="btn btn-info btn-sm"
+                    data-cy="entityDetailsButton"
+                  >
+                    <fa-icon icon="eye"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.view">Commander</span>
                   </button>
                 </div>
               </div>

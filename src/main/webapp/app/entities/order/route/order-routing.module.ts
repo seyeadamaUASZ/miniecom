@@ -7,6 +7,8 @@ import { OrderDetailComponent } from '../detail/order-detail.component';
 import { OrderUpdateComponent } from '../update/order-update.component';
 import { OrderRoutingResolveService } from './order-routing-resolve.service';
 import { ASC } from 'app/config/navigation.constants';
+import { SaveorderComponent } from '../saveorder/saveorder.component';
+import { OrderProductResolveService } from './order-product-resolve.service';
 
 const orderRoute: Routes = [
   {
@@ -40,6 +42,13 @@ const orderRoute: Routes = [
       order: OrderRoutingResolveService,
     },
     canActivate: [UserRouteAccessService],
+  },
+  {
+    path: ':id/saveOrder',
+    component: SaveorderComponent,
+    resolve: {
+      product: OrderProductResolveService,
+    },
   },
 ];
 
