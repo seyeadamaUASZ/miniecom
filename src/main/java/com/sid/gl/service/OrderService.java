@@ -41,7 +41,7 @@ public interface OrderService {
      *
      * @return the list of entities.
      */
-    List<Order> findAll(boolean isAdmin);
+    List<Order> findAll();
 
     /**
      * Get all the orders with eager load of many-to-many relationships.
