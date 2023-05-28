@@ -577,7 +577,7 @@
                             </platforms>
                         </from>
                         <to>
-                             <image>miniecom:latest</image>
+                            <image>registry.hub.docker.com/adama93/miniecom:latest</image>
                         </to>
                         <container>
                             <entrypoint>
