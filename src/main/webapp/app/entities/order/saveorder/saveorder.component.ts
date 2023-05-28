@@ -6,6 +6,10 @@ import { IOrder } from '../order.model';
 import { IProduct } from '../../product/product.model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import dayjs from 'dayjs/esm';
+import { Observable } from 'rxjs';
+import { HttpResponse } from '@angular/common/http';
+import { finalize } from 'rxjs/operators';
+import { DATE_TIME_FORMAT } from '../../../config/input.constants';
 
 @Component({
   selector: 'jhi-saveorder',
@@ -42,10 +46,35 @@ export class SaveorderComponent implements OnInit {
   }
 
   save() {
-    console.log('save..');
+    //console.log('save..');
+    console.log('the order form ' + JSON.stringify(this.orderForm.value));
+    const data = {
+      quantity: this.orderForm.value.quantityOrder,
+      idProduct: this.product?.id,
+      date: dayjs(this.orderForm.value.date, DATE_TIME_FORMAT),
+    };
+    this.subscribeToSaveResponse(this.orderService.createOrderByUser(data));
+  }
+
+  protected subscribeToSaveResponse(result: Observable<HttpResponse<IOrder>>): void {
+    result.pipe(finalize(() => this.onSaveFinalize())).subscribe({
+      next: () => this.onSaveSuccess(),
+      error: () => this.onSaveError(),
+    });
+  }
+  protected onSaveSuccess(): void {
+    this.previousState();
+  }
+
+  protected onSaveError(): void {
+    // Api for inheritance.
+  }
+
+  protected onSaveFinalize(): void {
+    this.isSaving = false;
   }
 
   previousState() {
-    console.log('previous...');
+    window.history.back();
   }
 }

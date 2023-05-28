@@ -4,6 +4,7 @@ import com.sid.gl.domain.Order;
 import com.sid.gl.repository.OrderRepository;
 import com.sid.gl.security.AuthoritiesConstants;
 import com.sid.gl.service.OrderService;
+import com.sid.gl.service.dto.OrderDTO;
 import com.sid.gl.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -58,6 +59,20 @@ public class OrderResource {
             throw new BadRequestAlertException("A new order cannot already have an ID", ENTITY_NAME, "idexists");
         }
         Order result = orderService.save(order);
+        return ResponseEntity
+            .created(new URI("/api/orders/" + result.getId()))
+            .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
+            .body(result);
+    }
+
+    //order by user
+    @PostMapping("/orders/by-user")
+    public ResponseEntity<Order> createOrderByUser(@Valid @RequestBody OrderDTO order) throws URISyntaxException {
+        log.debug("REST request to save Order : {}", order);
+        if (order.getId() != null) {
+            throw new BadRequestAlertException("A new order cannot already have an ID", ENTITY_NAME, "idexists");
+        }
+        Order result = orderService.saveOrderUser(order);
         return ResponseEntity
             .created(new URI("/api/orders/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
@@ -140,16 +155,16 @@ public class OrderResource {
      */
 
     @GetMapping("/orders")
-    @PreAuthorize("hasAuthority(\"" + AuthoritiesConstants.ADMIN + "\")")
+    //@PreAuthorize("hasAuthority(\"" + AuthoritiesConstants.ADMIN + "\")")
     public List<Order> getAllOrders(@RequestParam(required = false, defaultValue = "false") boolean eagerload) {
         log.debug("REST request to get all Orders");
-        return orderService.findAll(true);
+        return orderService.findAll();
     }
 
     @GetMapping("/ordersByUser")
     public List<Order> getOrdersByUser() {
         log.debug("Retrieve orders by users");
-        return orderService.findAll(false);
+        return orderService.findAll();
     }
 
     /**
@@ -180,4 +195,6 @@ public class OrderResource {
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
             .build();
     }
+    //order by user
+
 }

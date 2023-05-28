@@ -1,10 +1,22 @@
 package com.sid.gl.service.dto;
 
+import java.time.Instant;
+
 public class OrderDTO {
 
     private Long id;
     private Integer quantity;
     private Long idProduct;
+
+    private Instant date;
+
+    public Instant getDate() {
+        return date;
+    }
+
+    public void setDate(Instant date) {
+        this.date = date;
+    }
 
     public OrderDTO() {
         super();

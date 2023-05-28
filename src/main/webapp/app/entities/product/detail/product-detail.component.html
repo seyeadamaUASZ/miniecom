@@ -1,4 +1,5 @@
 <div class="d-flex justify-content-center">
+  <jhi-alert></jhi-alert>
   <!--<div class="col-8">
     <div *ngIf="product">
       <h2 data-cy="productDetailsHeading"><span jhiTranslate="miniecomApp.product.detail.title">Product</span></h2>
@@ -95,7 +96,7 @@
                     <i class="fa fa-star"></i>
                     <i class="fa fa-star"></i>
                   </div>
-                  <span>{{ product.quantity! }}</span>
+                  <span style="font-weight: bold"> qt : {{ product.quantity! }}</span>
                 </div>
                 <!--<div class="mt-1 mb-0 text-muted small">
                   <span>100% cotton</span>
@@ -124,9 +125,10 @@
                 <h6 class="text-success">{{ statusProduct(product.status!) }}</h6>
                 <div class="d-flex flex-column mt-4">
                   <button class="btn btn-primary btn-sm" type="button">Details</button>
-                  <button class="btn btn-outline-primary btn-sm mt-2" type="button">
-                    <span jhiTranslate="miniecomApp.product.detail.addcard">Commander</span>
-                  </button>
+                  <br />
+                  <!--                  <button class="btn btn-outline-primary btn-sm mt-2" type="button">-->
+                  <!--                    <span jhiTranslate="miniecomApp.product.detail.addcard">Commander</span>-->
+                  <!--                  </button>-->
                   <button
                     type="submit"
                     [routerLink]="['/order', product.id, 'saveOrder']"
@@ -134,7 +136,7 @@
                     data-cy="entityDetailsButton"
                   >
                     <fa-icon icon="eye"></fa-icon>
-                    <span class="d-none d-md-inline" jhiTranslate="entity.action.view">Commander</span>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.command">Commander</span>
                   </button>
                 </div>
               </div>

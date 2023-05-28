@@ -35,6 +35,12 @@ export class OrderService {
     return this.http.post<RestOrder>(this.resourceUrl, copy, { observe: 'response' }).pipe(map(res => this.convertResponseFromServer(res)));
   }
 
+  createOrderByUser(data: any): Observable<EntityResponseType> {
+    return this.http
+      .post<RestOrder>(this.resourceUrl + '/by-user', data, { observe: 'response' })
+      .pipe(map(res => this.convertResponseFromServer(res)));
+  }
+
   update(order: IOrder): Observable<EntityResponseType> {
     const copy = this.convertDateFromClient(order);
     return this.http
